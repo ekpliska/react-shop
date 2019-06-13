@@ -1,12 +1,8 @@
 // Список всех книг
 
 const initialState = {
-    books: [
-        {
-            id: 0,
-            title: 'Title book 1'
-        }
-    ]
+    isReady: false,
+    items: null,
 }
 
 export default (state = initialState, action) => {
@@ -14,12 +10,18 @@ export default (state = initialState, action) => {
         case 'SET_BOOKS':
             return {
                 ...state,   // Возвращаем все состояние
-                books: action.payload   // А затем, books заменяем на то что пришло
+                items: action.payload,   // А затем, books заменяем на то что пришло
+                isReady: true
             };
+        case 'SET_IS_READY':
+            return {
+                ...state,
+                isReady: action.payload
+            }
         case 'ADD_BOOK':
             return {
                 ...state,
-                books: [
+                items: [
                     ...state.books,
                     action.payload
                 ]
