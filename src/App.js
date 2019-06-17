@@ -2,6 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { setBooks } from './actions/book';
 import axios from 'axios';
+import { Container, Card } from 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css';
+import Menu from './components/Menu';
+import BookCart from './components/BookCart';
+import './App.css';
 
 class App extends React.Component {
 
@@ -18,30 +23,29 @@ class App extends React.Component {
 	}
 
 	render() {
-		const { books } = this.props;
+		const { books, isReady } = this.props;
 		return (
-			<ul>
-				{
-					!books
-						? 'Загрузка...'
-						: books.map((book, index) => {
-							return (
-								<li key={index}>
-									<b>
-										{book.title}
-									</b> - 
-									{book.author}
-								</li>
-							)
-						})
-				}
-			</ul>
+			<Container>
+				<Menu />
+				<Card.Group itemsPerRow={4}>
+					{
+						!isReady
+							? 'Загрузка...'
+							: books.map((book, index) => {
+								return (
+									<BookCart key={index} {...book} />
+								)
+							})
+					}
+				</Card.Group>
+			</Container>
 		)
 	}
 }
 
 const mapStateToProps = ({ books }) => ({
-	books: books.items
+	books: books.items,
+	isReady: books.isReady
 });
 
 const mapDispatchToProps = dispatch => ({
