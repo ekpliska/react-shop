@@ -3,6 +3,7 @@
 const initialState = {
     isReady: false,
     items: null,
+    filterBy: 'all'
 }
 
 export default (state = initialState, action) => {
@@ -18,13 +19,10 @@ export default (state = initialState, action) => {
                 ...state,
                 isReady: action.payload
             }
-        case 'ADD_BOOK':
+        case 'SET_FILTER':
             return {
                 ...state,
-                items: [
-                    ...state.books,
-                    action.payload
-                ]
+                filterBy: action.payload
             };
         default:
             return state;

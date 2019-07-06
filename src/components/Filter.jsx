@@ -1,36 +1,31 @@
 import React from 'react';
-import { Input, Menu } from 'semantic-ui-react'
+import { Menu } from 'semantic-ui-react'
 
-export default class Filter extends React.Component {
-    state = { activeItem: 'all' }
+const Filter = ({ setFilter, filterBy }) => {
 
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-
-    render() {
-        const { activeItem } = this.state
-
-        return (
-            <Menu secondary>
-                <Menu.Item name='all' active={activeItem === 'all'} onClick={this.handleItemClick}>
-                    Все
+    return (
+        <Menu secondary>
+            <Menu.Item name='all' active={filterBy === 'all'} onClick={setFilter.bind(this, 'all')}>
+                Все
                 </Menu.Item>
 
-                <Menu.Item name='popular' active={activeItem === 'popular'} onClick={this.handleItemClick}>
-                    Популярные
+            <Menu.Item name='popular' active={filterBy === 'popular'} onClick={setFilter.bind(this, 'popular')}>
+                Популярные
                 </Menu.Item>
 
-                <Menu.Item name='price_high' active={activeItem === 'price_high'} onClick={this.handleItemClick}>
-                    Цена (по возрастанию)
+            <Menu.Item name='price_high' active={filterBy === 'price_high'} onClick={setFilter.bind(this, 'price_high')}>
+                Цена (по возрастанию)
                 </Menu.Item>
 
-                <Menu.Item name='' active={activeItem === 'price_low'} onClick={this.handleItemClick}>
-                    Цена (по убыванию)
+            <Menu.Item name='' active={filterBy === 'price_low'} onClick={setFilter.bind(this, 'price_low')}>
+                Цена (по убыванию)
                 </Menu.Item>
 
-                <Menu.Item name='author' active={activeItem === 'author'} onClick={this.handleItemClick}>
-                    Автор
+            <Menu.Item name='author' active={filterBy === 'author'} onClick={setFilter.bind(this, 'author')}>
+                Автор
                 </Menu.Item>
-            </Menu>
-        )
-    }
+        </Menu>
+    )
 }
+
+export default Filter;
