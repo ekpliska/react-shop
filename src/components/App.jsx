@@ -5,6 +5,7 @@ import 'semantic-ui-css/semantic.min.css';
 import Menu from './Menu';
 import BookCart from './BookCart';
 import '../App.css';
+import Filter from './Filter';
 
 class App extends React.Component {
 
@@ -25,6 +26,7 @@ class App extends React.Component {
 		return (
 			<Container>
 				<Menu />
+				<Filter />
 				<Card.Group itemsPerRow={4}>
 					{
 						!isReady
