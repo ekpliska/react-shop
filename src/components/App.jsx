@@ -1,19 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Card, Container } from 'semantic-ui-react';
 import axios from 'axios';
-import { Container, Card } from 'semantic-ui-react';
-import 'semantic-ui-css/semantic.min.css';
-import Menu from './Menu';
-import BookCart from './BookCart';
-import '../App.css';
+
+import BookCard from '../containers/BookCard';
 import Filter from '../containers/Filter';
+import Menu from '../containers/Menu';
 
-class App extends React.Component {
-
-	/**
-	 * После того как компонент смонтировался,
-	 * происходит http запрос, в котором получаем массив книг
-	 * после чего передаем их в reducer books
-	 */
+class App extends Component {
 	componentWillMount() {
 		const { setBooks } = this.props;
 		axios.get('/books.json').then(({ data }) => {
@@ -28,18 +21,12 @@ class App extends React.Component {
 				<Menu />
 				<Filter />
 				<Card.Group itemsPerRow={4}>
-					{
-						!isReady
-							? 'Загрузка...'
-							: books.map((book, index) => {
-								return (
-									<BookCart key={index} {...book} />
-								)
-							})
-					}
+					{!isReady
+						? 'Загрузка...'
+						: books.map((book, i) => <BookCard key={i} {...book} />)}
 				</Card.Group>
 			</Container>
-		)
+		);
 	}
 }
 

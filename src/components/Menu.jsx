@@ -1,27 +1,43 @@
-import React from 'react';
-import { Menu as MenuSemantic } from 'semantic-ui-react';
+import React from "react";
+import { Menu, Popup, List, Button, Image } from "semantic-ui-react";
 
-const Menu = () => {
-    return (
-        <MenuSemantic>
-            <MenuSemantic.Item name='browse'>
-                Книжный магазин
-        	</MenuSemantic.Item>
+const CartComponent = ({ title, id, image, removeFromCart }) => (
+    <List selection divided verticalAlign="middle">
+        <List.Item>
+            <List.Content floated="right">
+                <Button onClick={removeFromCart.bind(this, id)} color="red">
+                    Удалить
+        </Button>
+            </List.Content>
+            <Image avatar src={image} />
+            <List.Content>{title}</List.Content>
+        </List.Item>
+    </List>
+);
 
-            <MenuSemantic.Menu position='right'>
-                <MenuSemantic.Item name='signup'>
-                    Итого 
-                    <b>
-                        0 руб.
-                    </b>
-          		</MenuSemantic.Item>
+const MenuComponent = ({ totalPrice, count, items }) => (
+    <Menu>
+        <Menu.Item name="browse">Магазин книг</Menu.Item>
 
-                <MenuSemantic.Item name='help'>
-                    Корзина (<b>0</b>)
-          		</MenuSemantic.Item>
-            </MenuSemantic.Menu>
-        </MenuSemantic>
-    )
-}
+        <Menu.Menu position="right">
+            <Menu.Item name="signup">
+                Итого: &nbsp; <b>{totalPrice}</b>&nbsp;руб.
+            </Menu.Item>
 
-export default Menu;
+            <Popup
+                trigger={
+                    <Menu.Item name="help">
+                        Корзина (<b>{count}</b>)
+                    </Menu.Item>
+                }
+                content={items.map(book => (
+                    <CartComponent {...book} />
+                ))}
+                on="click"
+                hideOnScroll
+            />
+        </Menu.Menu>
+    </Menu>
+);
+
+export default MenuComponent;
